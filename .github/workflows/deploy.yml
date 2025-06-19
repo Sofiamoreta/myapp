@@ -1,0 +1,32 @@
+# .github/workflows/deploy.yml
+name: Desplegar App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar código
+        uses: actions/checkout@v3
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Validar configuración con CUE
+        run: |
+          curl -LO https://github.com/cue-lang/cue/releases/download/v0.8.0/cue_v0.8.0_linux_amd64.tar.gz
+          tar -xzf cue_v0.8.0_linux_amd64.tar.gz
+          sudo mv cue /usr/local/bin/
+          cue vet config.cue
+
+      - name: Ejecutar pruebas o desplegar
+        run: echo "Aquí iría tu despliegue"
