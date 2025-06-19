@@ -16,7 +16,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.20'   # byt till din Go-version
+          go-version: '1.23'   # byt till din Go-version
 
       - name: Build Go binary
         run: |
